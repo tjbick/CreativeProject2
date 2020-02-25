@@ -1,6 +1,6 @@
-document.getElementById("SubmitButton").addEventListener("click", (x) => {
+document.getElementById("SubmitButton").addEventListener("click", (e) => {
     e.preventDefault();
-    const originalCurrencyAmount = document.getElementById("ExchangeAmount").nodeValue;
-    const originalCurrencyType = document.getElementById("fromCurrency").onselect;
+    const originalCurrencyAmount = parseInt(document.getElementById("ExchangeAmount").value);
+    const originalCurrencyType = document.getElementById("fromCurrency").value;
     
 });
