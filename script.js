@@ -16,6 +16,7 @@ document.getElementById("ExchangeAmount").addEventListener("keyup", (e) => {
         console.log(json);
           let exchangeRate = extractRate(toCurrency, json.rates);
           document.getElementById("ExchangeAmount2").value = originalCurrencyAmount * exchangeRate;
+          updateDateAndTime(json);
       })
       .catch((response) => {
           console.log(response);
@@ -38,6 +39,7 @@ document.getElementById("ExchangeAmount2").addEventListener("keyup", (e) => {
         console.log(json);
           let exchangeRate = extractRate(toCurrency, json.rates);
           document.getElementById("ExchangeAmount").value = originalCurrencyAmount * exchangeRate;
+          updateDateAndTime(json);
       })
       .catch((response) => {
           console.log(response);
@@ -60,6 +62,7 @@ document.getElementById("toCurrency").addEventListener("change", (e) => {
         console.log(json);
           let exchangeRate = extractRate(toCurrency, json.rates);
           document.getElementById("ExchangeAmount2").value = originalCurrencyAmount * exchangeRate;
+          updateDateAndTime(json);
       })
       .catch((response) => {
           console.log(response);
@@ -82,6 +85,7 @@ document.getElementById("fromCurrency").addEventListener("change", (e) => {
         console.log(json);
         let exchangeRate = extractRate(toCurrency, json.rates);
         document.getElementById("ExchangeAmount2").value = originalCurrencyAmount * exchangeRate;
+        updateDateAndTime(json);
       })
       .catch((response) => {
         console.log(response);
@@ -98,7 +102,24 @@ function extractRate(currencyName, rates) {
 }
 
 function updateDateAndTime(json) {
-    let dateRoot = document.getElementById("date");
-    let timeRoot = document.getElementById("time");
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+        ];
+    let result;
+    var date = new Date(json.time_last_updated * 1000);
+    var hour;
+    var temp;
+    if (date.getHours() >= 12) {
+        temp = 'pm';
+    }
+    else {
+        temp = 'am';
+    }
+    var hour = (date.getHours() % 12);
+    var mins = date.getMinutes();
+    time = hour + temp;
+    result += '<div id="time">As of ' + time + ' </div>';
+    result += '<div id="date">on ' + date.toDateString() + '</div>';
+    document.getElementById("info-box").innerHTML = result;
 
 }
